@@ -1,45 +1,44 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Products from "./components/Products";
-import CartModal from "./components/CartModal";
+import Modal from "./components/Modal";
+import Cart from "./components/Cart";
+import CartContextProvider from "./CartContext";
+import Checkout from "./components/Checkout";
 
 function App() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [cartModalIsOpen, setCartModalIsOpen] = useState(false);
+  const [checkoutModalIsOpen, setCheckoutCartModalIsOpen] = useState(false);
 
   function handleOpenCart() {
-    setModalIsOpen(true);
+    setCartModalIsOpen(true);
   }
 
   function handleCloseCart() {
-    setModalIsOpen(false);
+    setCartModalIsOpen(false);
+  }
+
+  function openCheckoutModal() {
+    setCartModalIsOpen(false);
+    setCheckoutCartModalIsOpen(true);
+  }
+
+  function handleCloseCheckout() {
+    setCheckoutCartModalIsOpen(false);
   }
 
   return (
     <>
-      <Header onOpen={handleOpenCart} />
-      <CartModal open={modalIsOpen} onClose={handleCloseCart}>
-        <div className="cart">
-          <h2>Your Cart</h2>
-          <ul>
-            <li className="cart-item">
-              <p>Some item</p>
-              <div className="cart-item-actions">
-                <button>+</button>
-                <p>1</p>
-                <button>-</button>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <p className="cart-total">$70.56</p>
-        <div className="modal-actions">
-          <button className="text-button" onClick={handleCloseCart}>
-            Close
-          </button>
-          <button className="button">Go to Checkout</button>
-        </div>
-      </CartModal>
-      <Products />
+      <CartContextProvider>
+        <Header onOpen={handleOpenCart} />
+        <Modal open={cartModalIsOpen}>
+          <Cart onClose={handleCloseCart} openCheckout={openCheckoutModal} />
+        </Modal>
+        <Modal open={checkoutModalIsOpen}>
+          <Checkout onClose={handleCloseCheckout} />
+        </Modal>
+        <Products />
+      </CartContextProvider>
     </>
   );
 }

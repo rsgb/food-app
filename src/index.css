@@ -50,10 +50,6 @@ h1 {
   text-transform: uppercase;
 }
 
-.loading {
-  text-align: center;
-}
-
 #meals {
   width: 90%;
   max-width: 70rem;

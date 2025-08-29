@@ -20,7 +20,7 @@ export default function Products() {
   return (
     <div>
       {/*While data is loading, show this... */}
-      {isFetching && <p className="loading">Loading available meals...</p>}
+      {isFetching && <p className="center">Loading available meals...</p>}
 
       {/*When loading is false, show this... */}
       {!isFetching && (
