@@ -137,7 +137,7 @@ export default function Checkout({ onClose }) {
               </button>
               {/* Push cartItems and customer data to /orders */}
               <button type="submit" className="button" disabled={pending}>
-                Submit Order
+                {pending ? "Submitting order..." : "Submit Order"}
               </button>
             </div>
           </form>
